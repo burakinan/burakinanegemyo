@@ -1,0 +1,54 @@
+//2servo motor control with 4 button (3d printed maze controll project)
+#include <Servo.h>  // servo kütüphanesi ekledim
+Servo servoust;  // servoları tanıttım
+Servo servoalt;
+int aci = 90;    // Servo açısı başlangıç değerleri 
+int altaci = 90;
+const int servopin=6; // Servonun bağlı olduğu pin
+const int servoaltpin=7; // Servonun bağlı olduğu pin
+const int ileri=9; // İleri butonunun bağlı olduğu pin
+const int geri=8; // Geri butonunun bağlı olduğu pin
+const int saga=11; // Sag butonunun bağlı olduğu pin
+const int sola=10; // Sol butonunun bağlı olduğu pin
+  int x=0; // ileri okunan değer
+  int y=0; // Geri okunan değer
+  int altx=0; // Saga okunan değer
+  int alty=0; // Sola okunan değer
+void setup() 
+{ 
+  servoust.attach(6);  //servonun bağlanacağı pinleri belirledim.
+  servoalt.attach(7); 
+  pinMode(ileri,INPUT); // Butonları giriş olarak tanıttım
+  pinMode(geri,INPUT);
+  pinMode(saga,INPUT);
+  pinMode(sola,INPUT);
+  Serial.begin(9600); // seri haberlesmeyi baslattım
+} 
+void loop() 
+{ 
+  { 
+  Serial.println(aci);
+  delay(15);
+  x=digitalRead(ileri);
+  y=digitalRead(geri);
+  if(x && aci<180)
+    aci++;
+  if(y && aci>0)
+    aci--;
+  if(aci==0 || aci==180)
+    aci=0;
+  servoust.write(aci);             
+{ 
+   Serial.println(altaci);
+  delay(15);
+  altx=digitalRead(saga);
+  alty=digitalRead(sola);
+  if(altx && altaci<180)
+    altaci++;
+  if(alty && altaci>0)
+    altaci--;
+  if(altaci==0 || altaci==180)
+    altaci=0;
+  servoalt.write(altaci);             
+  //delay(15);
+  } } } 
